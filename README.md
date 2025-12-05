@@ -194,3 +194,41 @@ The frontend is built with React and uses Tailwind CSS for styling. The applicat
 - AdminDashboard.jsx - Admin-specific features
 
 API calls are handled through the service layer in `src/services/api.js`.
+
+## Deployment
+
+### Prerequisites for Deployment
+
+1. A Render account
+2. A MySQL database (can be hosted on Render, AWS RDS, or any other provider)
+
+### Deploying to Render
+
+1. Fork this repository to your GitHub account
+2. Create a MySQL database and run the schema from `skillhive_skill_types.sql`
+3. Deploy the backend:
+   - Create a new Web Service on Render
+   - Connect it to your forked repository
+   - Set the root directory to `backend`
+   - Use these settings:
+     - Build Command: `pip install -r requirements.txt`
+     - Start Command: `gunicorn --bind 0.0.0.0:$PORT app:app`
+   - Add environment variables:
+     - DB_HOST (your database host)
+     - DB_PORT (usually 3306)
+     - DB_USER (your database user)
+     - DB_PASSWORD (your database password)
+     - DB_NAME (your database name)
+4. Deploy the frontend:
+   - Create a new Static Site on Render
+   - Connect it to your forked repository
+   - Set the root directory to `frontend`
+   - Use these settings:
+     - Build Command: `npm install && npm run build`
+     - Publish Directory: `dist`
+   - Add environment variables:
+     - VITE_API_BASE_URL (the URL of your deployed backend)
+
+### Alternative Deployment
+
+For detailed deployment instructions, see [DEPLOYMENT.md](DEPLOYMENT.md)

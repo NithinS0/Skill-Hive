@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: skillhive-backend
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --bind 0.0.0.0:$PORT app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.16
+    repo: https://github.com/NithinS0/Skill-Hive
+  
+  - type: web
+    name: skillhive-frontend
+    env: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: NODE_VERSION
+        value: 16
+    repo: https://github.com/NithinS0/Skill-Hive
