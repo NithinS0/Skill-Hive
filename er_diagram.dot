@@ -1,0 +1,237 @@
+digraph ER_Diagram {
+    rankdir=TB;
+    node [fontname="Arial"];
+    
+    // Entity styling - rectangles
+    node [shape=box, style=filled, fillcolor=lightblue];
+    
+    // Entities
+    Login [label="Login"];
+    User [label="User"];
+    Skill_Worker [label="Skill_Worker"];
+    Skill_Type [label="Skill_Type"];
+    Worker_Availability [label="Worker_Availability"];
+    Work_Request [label="Work_Request"];
+    Notification [label="Notification"];
+    Feedback [label="Feedback"];
+    Worker_Skills [label="Worker_Skills"];
+    Payment [label="Payment"];
+    
+    // Attributes - ovals
+    node [shape=ellipse, style=filled, fillcolor=lightyellow];
+    
+    // Login attributes
+    login_id [label=<<U>login_id</U>>];
+    username [label="username"];
+    password [label="password"];
+    role [label="role"];
+    
+    // User attributes
+    user_id [label=<<U>user_id</U>>];
+    user_first_name [label="first_name"];
+    user_last_name [label="last_name"];
+    user_email [label="email"];
+    user_phone1 [label="phone_number1"];
+    user_phone2 [label="phone_number2"];
+    
+    // Skill_Worker attributes
+    worker_id [label=<<U>worker_id</U>>];
+    worker_first_name [label="first_name"];
+    worker_last_name [label="last_name"];
+    worker_email [label="email"];
+    address [label="address"];
+    city [label="city"];
+    pincode [label="pincode"];
+    door_no [label="door_no"];
+    street_name [label="street_name"];
+    area [label="area"];
+    experience_years [label="experience_years"];
+    available_status [label="available_status"];
+    worker_phone1 [label="phone_number1"];
+    worker_phone2 [label="phone_number2"];
+    
+    // Skill_Type attributes
+    skill_type_id [label=<<U>skill_type_id</U>>];
+    skill_name [label="skill_name"];
+    
+    // Worker_Availability attributes
+    availability_id [label=<<U>availability_id</U>>];
+    request_details [label="request_details"];
+    
+    // Work_Request attributes
+    request_id [label=<<U>request_id</U>>];
+    description [label="description"];
+    request_date [label="request_date"];
+    status [label="status"];
+    location [label="location"];
+    req_city [label="city"];
+    req_pincode [label="pincode"];
+    req_door_no [label="door_no"];
+    req_street_name [label="street_name"];
+    req_area [label="area"];
+    worker_arrival_time [label="worker_arrival_time"];
+    user_requested_time [label="user_requested_time"];
+    user_confirmation_status [label="user_confirmation_status"];
+    
+    // Notification attributes
+    notification_id [label=<<U>notification_id</U>>];
+    message [label="message"];
+    date [label="date"];
+    notif_status [label="status"];
+    
+    // Feedback attributes
+    feedback_id [label=<<U>feedback_id</U>>];
+    comments [label="comments"];
+    rating [label="rating"];
+    
+    // Worker_Skills attributes
+    worker_skill_id [label=<<U>worker_skill_id</U>>];
+    
+    // Payment attributes
+    payment_id [label=<<U>payment_id</U>>];
+    amount [label="amount"];
+    payment_status [label="payment_status"];
+    payment_date [label="payment_date"];
+    payment_method [label="payment_method"];
+    transaction_id [label="transaction_id"];
+    due_date [label="due_date"];
+    invoice_number [label="invoice_number"];
+    created_at [label="created_at"];
+    
+    // Relationships - diamonds
+    node [shape=diamond, style=filled, fillcolor=lightgreen];
+    
+    Has_Login [label="Has"];
+    Worker_Has_Login [label="Has"];
+    Creates [label="Creates"];
+    Accepts [label="Accepts"];
+    Requires [label="Requires"];
+    Has_Availability [label="Has"];
+    Has_Skills [label="Has"];
+    Skill_For [label="For"];
+    Generates_Notification [label="Generates"];
+    Receives_Feedback [label="Receives"];
+    Generates_Payment [label="Generates"];
+    
+    // Login to User relationship
+    Login -> Has_Login [label="1", dir=none];
+    Has_Login -> User [label="1", dir=none];
+    
+    // Login to Skill_Worker relationship
+    Login -> Worker_Has_Login [label="1", dir=none];
+    Worker_Has_Login -> Skill_Worker [label="1", dir=none];
+    
+    // User to Work_Request relationship
+    User -> Creates [label="1", dir=none];
+    Creates -> Work_Request [label="N", dir=none];
+    
+    // Skill_Worker to Work_Request relationship
+    Skill_Worker -> Accepts [label="1", dir=none];
+    Accepts -> Work_Request [label="N", dir=none];
+    
+    // Skill_Type to Work_Request relationship
+    Skill_Type -> Requires [label="1", dir=none];
+    Requires -> Work_Request [label="N", dir=none];
+    
+    // Skill_Worker to Worker_Availability relationship
+    Skill_Worker -> Has_Availability [label="1", dir=none];
+    Has_Availability -> Worker_Availability [label="N", dir=none];
+    
+    // Skill_Worker to Worker_Skills relationship
+    Skill_Worker -> Has_Skills [label="1", dir=none];
+    Has_Skills -> Worker_Skills [label="N", dir=none];
+    
+    // Skill_Type to Worker_Skills relationship
+    Skill_Type -> Skill_For [label="1", dir=none];
+    Skill_For -> Worker_Skills [label="N", dir=none];
+    
+    // Work_Request to Notification relationship
+    Work_Request -> Generates_Notification [label="1", dir=none];
+    Generates_Notification -> Notification [label="N", dir=none];
+    
+    // Work_Request to Feedback relationship
+    Work_Request -> Receives_Feedback [label="1", dir=none];
+    Receives_Feedback -> Feedback [label="1", dir=none];
+    
+    // Work_Request to Payment relationship
+    Work_Request -> Generates_Payment [label="1", dir=none];
+    Generates_Payment -> Payment [label="1", dir=none];
+    
+    // Connect attributes to Login entity
+    Login -> login_id [dir=none];
+    Login -> username [dir=none];
+    Login -> password [dir=none];
+    Login -> role [dir=none];
+    
+    // Connect attributes to User entity
+    User -> user_id [dir=none];
+    User -> user_first_name [dir=none];
+    User -> user_last_name [dir=none];
+    User -> user_email [dir=none];
+    User -> user_phone1 [dir=none];
+    User -> user_phone2 [dir=none];
+    
+    // Connect attributes to Skill_Worker entity
+    Skill_Worker -> worker_id [dir=none];
+    Skill_Worker -> worker_first_name [dir=none];
+    Skill_Worker -> worker_last_name [dir=none];
+    Skill_Worker -> worker_email [dir=none];
+    Skill_Worker -> address [dir=none];
+    Skill_Worker -> city [dir=none];
+    Skill_Worker -> pincode [dir=none];
+    Skill_Worker -> door_no [dir=none];
+    Skill_Worker -> street_name [dir=none];
+    Skill_Worker -> area [dir=none];
+    Skill_Worker -> experience_years [dir=none];
+    Skill_Worker -> available_status [dir=none];
+    Skill_Worker -> worker_phone1 [dir=none];
+    Skill_Worker -> worker_phone2 [dir=none];
+    
+    // Connect attributes to Skill_Type entity
+    Skill_Type -> skill_type_id [dir=none];
+    Skill_Type -> skill_name [dir=none];
+    
+    // Connect attributes to Worker_Availability entity
+    Worker_Availability -> availability_id [dir=none];
+    Worker_Availability -> request_details [dir=none];
+    
+    // Connect attributes to Work_Request entity
+    Work_Request -> request_id [dir=none];
+    Work_Request -> description [dir=none];
+    Work_Request -> request_date [dir=none];
+    Work_Request -> status [dir=none];
+    Work_Request -> location [dir=none];
+    Work_Request -> req_city [dir=none];
+    Work_Request -> req_pincode [dir=none];
+    Work_Request -> req_door_no [dir=none];
+    Work_Request -> req_street_name [dir=none];
+    Work_Request -> req_area [dir=none];
+    Work_Request -> worker_arrival_time [dir=none];
+    Work_Request -> user_requested_time [dir=none];
+    Work_Request -> user_confirmation_status [dir=none];
+    
+    // Connect attributes to Notification entity
+    Notification -> notification_id [dir=none];
+    Notification -> message [dir=none];
+    Notification -> date [dir=none];
+    Notification -> notif_status [dir=none];
+    
+    // Connect attributes to Feedback entity
+    Feedback -> feedback_id [dir=none];
+    Feedback -> comments [dir=none];
+    Feedback -> rating [dir=none];
+    
+    // Connect attributes to Worker_Skills entity
+    Worker_Skills -> worker_skill_id [dir=none];
+    
+    // Connect attributes to Payment entity
+    Payment -> payment_id [dir=none];
+    Payment -> amount [dir=none];
+    Payment -> payment_status [dir=none];
+    Payment -> payment_date [dir=none];
+    Payment -> payment_method [dir=none];
+    Payment -> transaction_id [dir=none];
+    Payment -> due_date [dir=none];
+    Payment -> invoice_number [dir=none];
+    Payment -> created_at [dir=none];
+}
